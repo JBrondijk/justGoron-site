@@ -57,12 +57,14 @@
   }
 
   function setStatus(msg, cls) {
+    if (!statusEl) return;
     statusEl.textContent = msg;
     statusEl.className = cls || '';
     statusEl.hidden = false;
   }
 
   function clearStatus() {
+    if (!statusEl) return;
     statusEl.textContent = '';
     statusEl.className = '';
     statusEl.hidden = true;
@@ -126,10 +128,11 @@
     });
   }
 
-  function fetchPlaylistVideoIds() {
+  function fetchPlaylistVideoIds(playlistId) {
     var ids = [];
+    var targetPlaylistId = playlistId || currentPlaylistId();
     function page(pageToken) {
-      var params = { part: 'contentDetails', playlistId: currentPlaylistId(), maxResults: '50' };
+      var params = { part: 'contentDetails', playlistId: targetPlaylistId, maxResults: '50' };
       if (pageToken) params.pageToken = pageToken;
       return apiGet('/playlistItems', params).then(function (data) {
         (data.items || []).forEach(function (item) {
@@ -163,7 +166,7 @@
   }
 
   function buildDataset() {
-    return fetchPlaylistVideoIds()
+    return fetchPlaylistVideoIds(currentPlaylistId())
       .then(fetchVideoSnippets)
       .then(function (videos) {
         var dataset = [];
@@ -172,6 +175,61 @@
           if (elig.length > 0) dataset.push({ id: v.id, title: v.title, timestamps: elig });
         });
         return dataset;
+      });
+  }
+
+  function escapeHtml(value) {
+    return String(value || '').replace(/[&<>"']/g, function (ch) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch];
+    });
+  }
+
+  function bindCarouselControls() {
+    document.querySelectorAll('.carousel-button[data-carousel-scroll]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var carousel = document.getElementById('pz-inspiration-carousel');
+        if (!carousel) return;
+        var shift = carousel.clientWidth * 0.8;
+        var direction = Number(button.dataset.carouselScroll) || 1;
+        carousel.scrollBy({ left: shift * direction, behavior: 'smooth' });
+      });
+    });
+  }
+
+  function renderPlaylistCarousel(videos) {
+    var root = document.getElementById('pz-inspiration-carousel');
+    if (!root) return;
+    if (!videos.length) {
+      root.innerHTML = '<div class="playlist-carousel__empty">No videos found.</div>';
+      return;
+    }
+    root.innerHTML = videos.map(function (video) {
+      return '<a class="playlist-card" href="https://www.youtube.com/watch?v=' + encodeURIComponent(video.id) + '" target="_blank" rel="noopener" aria-label="Open ' + escapeHtml(video.title) + '">' +
+        '<img class="playlist-card__thumb" src="https://i.ytimg.com/vi/' + encodeURIComponent(video.id) + '/hqdefault.jpg" alt="' + escapeHtml(video.title) + '" loading="lazy" />' +
+        '<div class="playlist-card__meta"><span>Video</span><strong>' + escapeHtml(video.title) + '</strong></div>' +
+        '</a>';
+    }).join('');
+  }
+
+  function loadPlaylistCarousel() {
+    var root = document.getElementById('pz-inspiration-carousel');
+    if (!root) return;
+    root.innerHTML = '<div class="playlist-carousel__loading">Loading videos…</div>';
+    fetchPlaylistVideoIds('PL6W47aln8JRfkyR_Bf19Nt63DElvTkB11')
+      .then(fetchVideoSnippets)
+      .then(function (videos) {
+        var seen = {};
+        var ordered = [];
+        videos.forEach(function (video) {
+          if (!video || !video.id || seen[video.id]) return;
+          seen[video.id] = true;
+          ordered.push(video);
+        });
+        renderPlaylistCarousel(ordered);
+        bindCarouselControls();
+      })
+      .catch(function (e) {
+        root.innerHTML = '<div class="playlist-carousel__error">Unable to load videos right now.</div>';
       });
   }
 
@@ -355,12 +413,27 @@
   // --- Init ----------------------------------------------------------------
   function init() {
     cacheDom();
-    shuffleBtn.addEventListener('click', shuffle);
+
+    if (document.getElementById('pz-inspiration-carousel')) {
+      loadPlaylistCarousel();
+    }
+
+    if (shuffleBtn) {
+      shuffleBtn.addEventListener('click', shuffle);
+    }
+
+    if (!document.getElementById('status') && !document.getElementById('headline')) {
+      return;
+    }
 
     var key = apiKey();
     if (!key || key === PLACEHOLDER) {
       setStatus('Setup needed: copy config.example.js to config.js and add your ' +
         'YouTube Data API key. See README.md.', 'setup');
+      return;
+    }
+
+    if (!playlistToggleButtons || playlistToggleButtons.length === 0) {
       return;
     }
 

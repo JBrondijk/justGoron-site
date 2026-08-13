@@ -3,33 +3,279 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Welcome to justGoron.com</title>
+  <title>justGoron | Planet Zoo inspiration and zoo design</title>
+  <meta name="description" content="Portfolio-style homepage for a YouTube channel focused on Planet Zoo inspiration, zoo design, and animal habitat ideas." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" />
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    body{font-family:Nunito,system-ui,Segoe UI,Arial,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
-    main{max-width:720px;text-align:center;padding:24px}
-    a.button{display:inline-block;margin-top:16px;padding:10px 16px;background:#222;color:#fff;text-decoration:none;border-radius:6px}
-  </style>
+  <link rel="stylesheet" href="homepage.css" />
 </head>
-<body>
-  <main>
-    <section class="panel">
-      <header class="panel__header">
-        <p class="panel__eyebrow">Welcome to justGoron.com</p>
-      </header>
+<body class="site-home">
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="/" class="brand" aria-label="JustGoron home">
+        <span class="brand-mark">J</span>
+        <span class="brand-name">justGoron</span>
+      </a>
 
-      <div class="panel__body">
-        <h1 id="headline" aria-live="polite">Website under construction.</h1>
-        <p>Check back soon for updates!</p>
-        <p>Looking for Planet Zoo Inspiration? Go to the <a href="/inspiration">inspiration page</a> for the random habitat inspiration generator!</p>
-        <p>
-           Looking for Keypark Zoo? Visit <a href="https://keyparkzoo.com" target="_blank" rel="noopener">KeyparkZoo.com</a>.
-        </p>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#pz-inspiration">Planet Zoo Inspiration</a>
+        <a href="#goron-goes-wild">Goron Goes Wild</a>
+        <a href="#zoo-tours">Zoo Tours</a>
+        <a href="#about">About</a>
+      </nav>
+
+      <a class="button button--topbar" href="https://www.youtube.com/@justGoron" target="_blank" rel="noopener">Watch on YouTube</a>
+    </div>
+  </header>
+
+  <main id="home" class="container">
+    <section class="hero">
+      <div class="hero-shell">
+        <div>
+          <p class="eyebrow">Planet Zoo • Zoo Tours • wildlife</p>
+          <h1>Zoo design through the lens of Planet Zoo.</h1>
+          <p class="lead">
+            I create content exploring zoo design, wildlife, and conservation. From showcase projects to real-life habitat compilations, I document the creative process of building immersive animal experiences.
+          </p>
+
+          <div class="cta-row">
+            <a class="button button--primary" href="#pz-inspiration">Explore series</a>
+            <a class="button button--secondary" href="/inspiration">Random Inspiration Tool</a>
+          </div>
+        </div>
+
+        <!-- <div class="hero-card">
+          <div class="feature-panel" aria-label="Featured content example">
+            <div class="mini-tag">Latest upload</div>
+            <h2 class="mini-title">Real habitat inspiration</h2>
+            <div class="thumb-placeholder">Video still</div>
+            <div class="meta-row">
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </section>
+
+    <section class="content">
+       <div id="projects" class="section">
+        <div class="section-header">
+          <h2>Planet Zoo Projects</h2>
+          <p style="margin-top: 0.5rem; color: var(--muted);">Major zoo builds and design collaborations</p>
+        </div>
+
+        <div class="video-grid">
+          <article class="card video-card">
+            <div class="video-thumb project-badge">Keypark Zoo</div>
+            <div class="video-copy">
+              <span class="label">Original Design</span>
+              <h3>Keypark Zoo</h3>
+              <p>My personal zoo project, a small zoo full of my own custom-designed habitats featuring immersive storytelling.</p>
+              <div class="card-links">
+                <a href="/projects/keypark-zoo.html" class="text-link">Read more →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card video-card">
+            <div class="video-thumb project-badge">Safaripark Beekse Bergen</div>
+            <div class="video-copy">
+              <span class="label">Recreation</span>
+              <h3>Beekse Bergen Recreation</h3>
+              <p>The iconic Dutch safari park, now in Planet Zoo! This 1:1 recreation captures every detail of the real life zoo.</p>
+              <div class="card-links">
+                <a href="/projects/beekse-bergen-recreation.html" class="text-link">Read more →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card video-card">
+            <div class="video-thumb project-badge">Collaborations</div>
+            <div class="video-copy">
+              <span class="label">Collaboration</span>
+              <h3>Saint Reginald Zoo & More</h3>
+              <p>Collaborative zoo builds including Saint Reginald Zoo and custom projects created for other builders in the community.</p>
+              <div class="card-links">
+                <a href="/projects/saint-reginald-zoo.html" class="text-link">Read more →</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <section class="section series-section" id="pz-inspiration">
+        <div class="section-header">
+          <h2>Planet Zoo Inspiration</h2>
+          <a href="/inspiration">Open randomizer →</a>
+        </div>
+
+        <div class="series-hero">
+          <div class="series-copy">
+            <p>Real-world animal habitats and zoo design inspiration from around the globe, for you to turn into amazing Planet Zoo builds.</p>
+            <div class="series-actions">
+              <a class="button button--secondary" href="/inspiration">Try the inspiration tool</a>
+              <a class="button button--primary" href="https://www.youtube.com/playlist?list=PL6W47aln8JRfkyR_Bf19Nt63DElvTkB11" target="_blank" rel="noopener">Watch full playlist</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="playlist-carousel-shell">
+          <button type="button" class="carousel-button" data-carousel-scroll="-1" aria-label="Scroll previous videos">←</button>
+          <div id="pz-inspiration-carousel" class="playlist-carousel" aria-live="polite"></div>
+          <button type="button" class="carousel-button" data-carousel-scroll="1" aria-label="Scroll next videos">→</button>
+        </div>
+      </section>
+
+      <section class="section series-section" id="goron-goes-wild">
+        <div class="section-header">
+          <h2>Goron Goes Wild</h2>
+        </div>
+
+        <div class="series-hero series-hero--compact">
+          <div class="series-copy">
+            <p>Travel, wildlife encounters, and real life conservation from around the world!</p>
+          </div>
+          <a class="button button--primary" href="https://www.youtube.com/show/VLPL6W47aln8JRfnnCTFYFwT2n4fMA2qGN-r?sbp=Kgt0MDFPYVc4bTcyd0AB" target="_blank" rel="noopener">Watch Goron Goes Wild</a>
+        </div>
+      </section>
+
+      <section class="section series-section" id="zoo-tours">
+        <div class="section-header">
+          <h2>Zoo Tours</h2>
+        </div>
+
+        <div class="tour-grid">
+          <article class="card tour-card">
+            <div class="card-icon">🦒</div>
+            <h3>Real Life Zoo Tours</h3>
+            <p>Full zoo visits that showcase how public zoos are laid out, how spaces flow, and how habitat design creates a memorable visitor experience.</p>
+            <div class="tour-actions">
+              <a class="button button--secondary" href="https://www.youtube.com/watch?v=1e9st6F4IIs&list=PL6W47aln8JRe8ORMUQ3mPWqLEljVLIoqy" target="_blank" rel="noopener">Watch playlist</a>
+            </div>
+          </article>
+
+          <article class="card tour-card">
+            <div class="card-icon">📹</div>
+            <h3>Zoo Tour Snippets</h3>
+            <p>Shorter highlights focused on standout exhibits, animal spaces, and design moments that are worth borrowing for a Planet Zoo build.</p>
+            <div class="tour-actions">
+              <a class="button button--secondary" href="https://www.youtube.com/watch?v=DzEfP6ztODY&list=PL6W47aln8JRdDzqzlceouJ81BdMJ_edTK" target="_blank" rel="noopener">Watch playlist</a>
+            </div>
+          </article>
+
+          <article class="card tour-card">
+            <div class="card-icon">🏆</div>
+            <h3>Zoo Tierlists</h3>
+            <p>Rankings across multiple zoos, comparing exhibits, visitor appeal, and the overall quality of habitat design and animal presentation.</p>
+            <div class="tour-actions">
+              <a class="button button--secondary" href="https://www.youtube.com/watch?v=U2Ek7GEeNC8&list=PL6W47aln8JReBzSt1wGTEAvRePuVcLWDM" target="_blank" rel="noopener">Watch playlist</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div id="about" class="section">
+        <div class="about-grid">
+          <div class="about-copy">
+            <h3>About justGoron</h3>
+            <p>
+              Programmer by day, Zoo builder and wildlife enthusiast by night! I love exploring zoo design through a creative and educational lens. My channel combines real-world zoos and wildlife encounters, with creative and realistic builds in the game Planet Zoo.
+            </p>
+            <p>
+              Planet Zoo is the foundation, but my interest extends to real zoos, wildlife conservation, and the thoughtful design principles that make habitats feel authentic and immersive. Whether showcasing real-world inspiration, building large-scale projects, or sharing quick design tricks, the goal is always to create content that helps other players build better, more intentional zoos.
+            </p>
+
+            <ul class="about-list">
+              <li>Real-world animal habitats and zoo design inspiration</li>
+              <li>Large-scale Planet Zoo project builds</li>
+              <li>Wildlife travel and conservation</li>
+            </ul>
+          </div>
+
+          <aside class="quote-box" aria-label="Channel philosophy">
+            <strong>Picture</strong>
+            <p>"Boop"</p>
+            <strong>— justGoron</strong>
+          </aside>
+        </div>
+      </div>
+
+      <div id="faq" class="section">
+        <div class="section-header">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-grid">
+          <details class="faq-item">
+            <summary><strong>What is Planet Zoo?</strong></summary>
+            <p>Planet Zoo is a simulation game where you build and manage your own zoo. It combines business management with creative building, allowing players to design realistic habitats. I almost exclusively focus on creating content for this game, in the "sandbox" mode where you have unlimited money and resoruces to create the zoo of your dreams.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary><strong>What kind of computer do you have?</strong></summary>
+            <p>I have a custom built computer that I've made myself (okay I might have had some help from friends). It features a AMD Ryzen 7 9700X processor, 64GB of RAM, and an NVIDIA RTX 5070Ti graphics card.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary><strong>What camera do you use?</strong></summary>
+            <p>For recording Real life footage I use, and have used, a variety of different cameras. I still use a lot of the older footage, so you might notice a variety of quality in the videos...</p>
+            <b> Video cameras:</b>
+            <ul>
+              <li>GoPro Mission 1 (current as of may 2026)</li>
+              <li>DJI Osmo Pocket 3 (vlogging and dark spaces)</li>
+              <li>GoPro Hero 11 (old camera)</li>
+              <li>Panasonic HC-V180 (very old camera)</li>
+            </ul>
+            <b>Photo cameras:</b>
+            <ul>
+              <li>Canon EOS R7 (current as of 2026)</li>
+              <li>Canon EOS R50 (old)</li>
+            </ul>
+            <b>Lenses:</b>
+            <ul>
+              <li>Canon RF 100-500mm lens (current as of may 2026)</li>
+              <li>Canon RF 100-400mm lens (old)</li>
+              <li>Sigma EF 150-600mm lens (old)</li>
+            </ul>
+          </details>
+
+          <details class="faq-item">
+            <summary><strong>What is the random inspiration tool?</strong></summary>
+            <p>The random inspiration tool helps pick a random real-world animal habitat from my Real Life Inspiration series. It's designed to give you an idea of what to make when you're not sure what to build next.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary><strong>How often do you post new videos?</strong></summary>
+            <p>Upload frequency varies by project and series. I try to post weekly on fridays, and stream on wednesdays, but sometimes life gets in the way. Make sure to subscribe to stay posted, or join my discord server to get notified of new content!</p>
+          </details>
+
+          <details class="faq-item">
+            <summary><strong>Can you showcase my Planet Zoo build?</strong></summary>
+            <p>Thanks for the enthousiasm, but I really only showcase builds on my own initiative, just to ensure I actually have something worthwhile to say about them!</p>
+          </details>
+
+          <details class="faq-item faq-item--full">
+            <summary><strong>Which zoos have you visited?</strong></summary>
+            <p>I keep track of all my zoo visits on the following map, have a look!</p>
+            <div class="faq-embed-wrap">
+              <iframe src="https://www.google.com/maps/d/u/1/embed?mid=1LVdRlI62RHauwjGmn3n9JCm26yyaRpY&ehbc=2E312F" width="640" height="480" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of zoos visited by justGoron"></iframe>
+            </div>
+          </details>
+        </div>
       </div>
     </section>
   </main>
+
+  <footer>
+    <div class="container footer-bar">
+      <span>© 2026 justGoron • Planet Zoo builder and wildlife enthusiast</span>
+      <div class="nav" aria-label="Footer links">
+        <a href="https://www.youtube.com/@justGoron" target="_blank" rel="noopener">YouTube</a>
+        <a href="/inspiration">Inspiration Tool</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
