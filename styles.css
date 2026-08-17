@@ -41,10 +41,17 @@ main { width: min(760px, 100%); }
 .panel__header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.75rem;
   padding: 0.85rem 1.25rem;
   background: linear-gradient(180deg, var(--pz-green-bright), var(--pz-green));
   color: #fff;
+}
+
+.panel__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .panel__badge {
@@ -56,6 +63,22 @@ main { width: min(760px, 100%); }
   background: rgba(255, 255, 255, 0.18);
   border: 2px solid var(--pz-gold); /* gold ring, like the game's portraits */
   color: #fff;
+}
+
+.panel__home-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-decoration: none;
+  opacity: 0.96;
+}
+
+.panel__home-link:hover,
+.panel__home-link:focus-visible {
+  text-decoration: underline;
 }
 
 .panel__badge .paw {
