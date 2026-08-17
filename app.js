@@ -37,6 +37,7 @@
   var current = null;     // { videoId, title, label, seconds }
   var apiReady = false;
   var animalOverrides = {};
+  var headlineOverrides = {};
   var pendingSelection = null; // selection waiting for the IFrame API to load
   var pendingAutoplay = false; // whether that pending selection should autoplay
   var lastAutoplay = false;    // autoplay intent of the current selection
@@ -89,28 +90,53 @@
       .then(function (response) {
         if (!response.ok) {
           animalOverrides = {};
+          headlineOverrides = {};
           return;
         }
         return response.json();
       })
       .then(function (data) {
-        animalOverrides = data && typeof data === 'object' ? data : {};
+        if (!data || typeof data !== 'object') {
+          animalOverrides = {};
+          headlineOverrides = {};
+          return;
+        }
+
+        if (data.animalOverrides || data.headlineOverrides) {
+          animalOverrides = data.animalOverrides && typeof data.animalOverrides === 'object' ? data.animalOverrides : {};
+          headlineOverrides = data.headlineOverrides && typeof data.headlineOverrides === 'object' ? data.headlineOverrides : {};
+          return;
+        }
+
+        animalOverrides = data;
+        headlineOverrides = {};
       })
       .catch(function () {
         animalOverrides = {};
+        headlineOverrides = {};
       });
+  }
+
+  function lookupTitleOverrideMap(map, title) {
+    if (!map || typeof map !== 'object') return '';
+    var normalized = normalizeTitle(title);
+    return map[normalized] || map[normalized.toLowerCase()] || '';
   }
 
   // Video titles look like "<N> Real <Animal> Habitat(s)! (...)" -> <Animal>.
   function animalFromTitle(title) {
-    var normalized = normalizeTitle(title);
-    var overrideValue = animalOverrides && typeof animalOverrides === 'object'
-      ? (animalOverrides[normalized] || animalOverrides[normalized.toLowerCase()] || '')
-      : '';
+    var overrideValue = lookupTitleOverrideMap(animalOverrides, title);
     if (overrideValue) return String(overrideValue).trim();
 
+    var normalized = normalizeTitle(title);
     var m = /\bReal\s+(.+?)\s+Habitats?\b/i.exec(normalized);
     return m ? m[1].trim() : '';
+  }
+
+  function customHeadlineFromTitle(title) {
+    var overrideValue = lookupTitleOverrideMap(headlineOverrides, title);
+    if (!overrideValue) return '';
+    return 'Feeling stuck? Try building this ' + String(overrideValue).trim() + ' from ' + current.label + '!';
   }
 
   // --- Timestamp parsing ---------------------------------------------------
@@ -353,6 +379,13 @@
 
   function updateHeadline() {
     if (!current) { headlineEl.textContent = 'Feeling stuck?'; return; }
+
+    var customHeadline = customHeadlineFromTitle(current.title);
+    if (customHeadline) {
+      headlineEl.textContent = customHeadline;
+      return;
+    }
+
     // "Feeling stuck? Try building the <Animal> habitat of <Zoo>!", where Zoo
     // is the chapter label (the text after the timestamp).
     var animal = animalFromTitle(current.title);

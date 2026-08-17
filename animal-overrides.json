@@ -1,5 +1,10 @@
 {
-  "10 real life Butterfly houses! (Planet Zoo Inspiration)": "Butterfly",
-  "Armadillo are the Ultimate filler animal! (Planet Zoo Inspiration)": "Armadillo",
-  "Real Life Shoebill in Zoos, and the WILD!": "Shoebill"
+  "animalOverrides": {
+    "10 real life Butterfly houses! (Planet Zoo Inspiration)": "Butterfly",
+    "Armadillo are the Ultimate filler animal! (Planet Zoo Inspiration)": "Armadillo",
+    "Real Life Shoebill in Zoos, and the WILD!": "Shoebill"
+  },
+  "headlineOverrides": {
+    "27 Real Gift shops! (Planet Zoo Inspiration)": "Gift shop"
+  }
 }
