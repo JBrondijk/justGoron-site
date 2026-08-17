@@ -36,6 +36,7 @@
   var player = null;
   var current = null;     // { videoId, title, label, seconds }
   var apiReady = false;
+  var animalOverrides = {};
   var pendingSelection = null; // selection waiting for the IFrame API to load
   var pendingAutoplay = false; // whether that pending selection should autoplay
   var lastAutoplay = false;    // autoplay intent of the current selection
@@ -79,9 +80,36 @@
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
+  function normalizeTitle(title) {
+    return String(title || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function loadAnimalOverrides() {
+    return fetch('../animal-overrides.json', { cache: 'no-store' })
+      .then(function (response) {
+        if (!response.ok) {
+          animalOverrides = {};
+          return;
+        }
+        return response.json();
+      })
+      .then(function (data) {
+        animalOverrides = data && typeof data === 'object' ? data : {};
+      })
+      .catch(function () {
+        animalOverrides = {};
+      });
+  }
+
   // Video titles look like "<N> Real <Animal> Habitat(s)! (...)" -> <Animal>.
   function animalFromTitle(title) {
-    var m = /\bReal\s+(.+?)\s+Habitats?\b/i.exec(title || '');
+    var normalized = normalizeTitle(title);
+    var overrideValue = animalOverrides && typeof animalOverrides === 'object'
+      ? (animalOverrides[normalized] || animalOverrides[normalized.toLowerCase()] || '')
+      : '';
+    if (overrideValue) return String(overrideValue).trim();
+
+    var m = /\bReal\s+(.+?)\s+Habitats?\b/i.exec(normalized);
     return m ? m[1].trim() : '';
   }
 
@@ -330,7 +358,7 @@
     var animal = animalFromTitle(current.title);
     headlineEl.textContent = animal
       ? 'Feeling stuck? Try building the ' + animal + ' habitat of ' + current.label + '!'
-      : 'Feeling stuck? Try building this!';
+      : 'Feeling stuck? Try building this habitat from ' + current.label + '!';
   }
 
   // autoplay: true to load+play at the offset (used for Shuffle, where the call
@@ -439,7 +467,11 @@
 
     forceRefreshQuery = new URLSearchParams(location.search).get('refresh') === '1';
     setPlaylistButtons();
-    loadPlaylist();
+    loadAnimalOverrides().then(function () {
+      loadPlaylist();
+    }).catch(function () {
+      loadPlaylist();
+    });
   }
 
   if (document.readyState === 'loading') {
