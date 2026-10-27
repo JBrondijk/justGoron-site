@@ -7,7 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <link rel="stylesheet" href="../homepage.css" />
+    <link rel="icon" type="image/png" href="../Website Assets/Profile Pic V3 - 2000px.png" />
   <style>
     body {
       padding: 2rem 1rem 4rem;
@@ -15,8 +17,8 @@
     .project-page {
       width: min(860px, 100%);
       margin: 0 auto;
-      background: rgba(255,255,255,0.42);
-      border: 1px solid rgba(40, 61, 59, 0.08);
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(74, 104, 68, 0.25);
       border-radius: 26px;
       padding: 2rem;
       box-shadow: 0 22px 50px rgba(17, 13, 13, 0.12);
@@ -25,7 +27,7 @@
       margin-top: 0;
       font-size: clamp(2.1rem, 3vw, 3.2rem);
       line-height: 1.05;
-      color: var(--forest);
+      color: var(--orange);
     }
     .project-page p {
       color: var(--muted);
@@ -44,30 +46,19 @@
       gap: 0.75rem;
       margin-top: 1.5rem;
     }
-    .project-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.8rem 1.15rem;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--orange), #cf6546);
-      color: var(--cream);
-      font-weight: 800;
-      text-decoration: none;
-      box-shadow: 0 12px 30px rgba(182, 73, 40, 0.25);
-    }
   </style>
 </head>
 <body>
   <main class="project-page">
     <a class="top-link" href="/">← Back to home</a>
-    <h1>Collaborations</h1>
+    <h1><span class="title-ink" data-title="Collaborations">Collaborations</span></h1>
     <p>This project page is a placeholder for the collaborations section.</p>
 
     <div class="project-actions">
-      <a class="project-button" href="https://www.youtube.com/watch?v=dJp07ALYXa4&list=PL6W47aln8JRdqLQT5B5UmvuKXoUJr4Od4" target="_blank" rel="noopener">Saint Reginald</a>
-      <a class="project-button" href="https://www.youtube.com/watch?v=b23I7831Rt4&list=PL6W47aln8JRfWQUE_TIrdZLxjDsZL3maG" target="_blank" rel="noopener">Others</a>
+      <a class="button button--primary button--playlist" href="https://www.youtube.com/watch?v=dJp07ALYXa4&list=PL6W47aln8JRdqLQT5B5UmvuKXoUJr4Od4" target="_blank" rel="noopener">Saint Reginald <i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+      <a class="button button--primary button--playlist" href="https://www.youtube.com/watch?v=b23I7831Rt4&list=PL6W47aln8JRfWQUE_TIrdZLxjDsZL3maG" target="_blank" rel="noopener">Others <i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
     </div>
   </main>
+  <script src="../pawprints.js"></script>
 </body>
 </html>
